@@ -4,11 +4,9 @@
     font-family: 'Lato', sans-serif;
     box-sizing: border-box;
 }
-
 body {
     background: black;
 }
-
 header {
     background-color: grey;
     width: 100%;
@@ -16,22 +14,26 @@ header {
     position: fixed;
     padding: 40px 30px;
 }
-
 .header-left{
     float: left;
 }
-
 .header-left h1{
     color: red;
 }
-
 .header-right{
     float: right;
 }
-
+#risultati{
+    padding-top: 100px;
+}
 li{
     color: white;
+    list-style-type: none;
+    padding: 5px;
 }
 .invisible{
     display: none;
+}
+button{
+    cursor: pointer;
 }

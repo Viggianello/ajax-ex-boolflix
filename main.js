@@ -15,7 +15,19 @@
 
 $(document).ready(function() {
     // var ricerca = RicercaUtente();
+    $('#testo-ricerca').keypress().keypress(function(event){
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        // codice tasto invio
+        if(keycode == '13'){
+            $('#risultati').html('');
+            var valore = ricercaUtente();
+            chiamataAjax(valore);
+        }// chiudo l'if controllo input inserito da tastiera tasto 13 ossia invio
+    });// chiudo il keypress dell'input
+
     $('#pulsante-ricerca').click(function() {
+        // resetto l input da precedenti ricerche
+        $('#risultati').html('');
         var valore = ricercaUtente();
         chiamataAjax(valore);
     })
@@ -44,14 +56,16 @@ function chiamataAjax(valore) {
                 var lingua = risultatoCorrente.original_language;
                 var voto = risultatoCorrente.vote_average;
                 // stampo i risultati ottenuti
-                console.log('il titolo è: ' + titolo);
-                console.log('il titolo originale è: ' + titoloOriginale);
-                console.log('la liungia è: ' + lingua);
-                console.log('il voto è: ' + voto);
-                $('#risultati').append('<li>' + titolo + '</li>');
-                $('#risultati').append('<li>' + titoloOriginale + '</li>');
-                $('#risultati').append('<li>' + lingua + '</li>');
-                $('#risultati').append('<li>' + voto + '</li>');
+                // console.log('il titolo è: ' + titolo);
+                // console.log('il titolo originale è: ' + titoloOriginale);
+                // console.log('la lingua è: ' + lingua);
+                // console.log('il voto è: ' + voto);
+                $('#risultati').append('<li>' + 'il titolo è: ' + titolo + '</li>');
+                if (titolo != titoloOriginale ) {
+                    $('#risultati').append('<li>' + 'il titolo originale è: ' + titoloOriginale + '</li>');
+                }
+                $('#risultati').append('<li>' + 'la lingua è: ' + lingua + '</li>');
+                $('#risultati').append('<li>' + 'il voto è: ' + voto + '</li>');
             }
 
             // stampahtml(infodisco);
