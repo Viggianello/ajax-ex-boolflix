@@ -16,25 +16,44 @@
 $(document).ready(function() {
     // var ricerca = RicercaUtente();
     $('#pulsante-ricerca').click(function() {
-        chiamataajax();
+        var valore = ricercaUtente();
+        chiamataAjax(valore);
     })
 
-function chiamataajax() {
-    var ricerca = 'Batman';
-    ricerca = RicercaUtente();
+function chiamataAjax(valore) {
     //Chiamata ajax
     $.ajax({
         'url': 'https://api.themoviedb.org/3/search/movie',
         'method': 'GET',
         'data': {
             'api_key': '4a0b8c67695163b99de0216fcb0bfb27',
-            'query': ricerca,
+            'query': valore,
             'language': 'it'
         },
         'success': function(risposta) {
         // var infodisco = riposta.response;
             // stampo le informazioni per ogni disco
             console.log(risposta);
+            // salvo i risultati
+            var risultati = risposta.results;
+            for (var i = 0; i < risultati.length; i++) {
+                // leggo per ogni risultato 1)titolo 2)titolo originale 3)lingua 4)voto
+                var risultatoCorrente = risultati[i];
+                var titolo = risultatoCorrente.title;
+                var titoloOriginale = risultatoCorrente.original_title;
+                var lingua = risultatoCorrente.original_language;
+                var voto = risultatoCorrente.vote_average;
+                // stampo i risultati ottenuti
+                console.log('il titolo è: ' + titolo);
+                console.log('il titolo originale è: ' + titoloOriginale);
+                console.log('la liungia è: ' + lingua);
+                console.log('il voto è: ' + voto);
+                $('#risultati').append('<li>' + titolo + '</li>');
+                $('#risultati').append('<li>' + titoloOriginale + '</li>');
+                $('#risultati').append('<li>' + lingua + '</li>');
+                $('#risultati').append('<li>' + voto + '</li>');
+            }
+
             // stampahtml(infodisco);
             // selectgeneri(infodisco);
         },
@@ -44,30 +63,31 @@ function chiamataajax() {
     }// fine oggetto
     );
 }
-$('#testo-ricerca').keyup(function RicercaUtente(event){
-    // recupero il testo dell utente e tiro via gli spazi inutili e lo rendo tutto minuscolo per un confronto ,indipendentemente dal fatto che sia maiuscolo e minuscolo, delle sole lettere
+function ricercaUtente(){
+    // recupero il testo dell utente (inserito nell input)e tiro via gli spazi inutili e lo rendo tutto minuscolo per un confronto ,indipendentemente dal fatto che sia maiuscolo e minuscolo, delle sole lettere
     var testo_utente = $('#testo-ricerca').val().trim().toLowerCase();
-    console.log(testo_utente);
-   });// chiudo il keyup
-    // function stampahtml(infodischi) {
-    //     var schedadisco = $('#entry-template').html();
-    //     var template_function = Handlebars.compile(schedadisco);
-    //
-    //     for (var i = 0; i < infodischi.length; i++) {
-    //         var info= infodischi[i];
-    //         var disco = {
-    //             'poster': info.poster,
-    //             'title' : info.title,
-    //             'author': info.author,
-    //             'year': info.year,
-    //             'genre': info.genre,
-    //             'classe': info.genre,
-    //         }
-    //         var html_finale = template_function(disco);
-    //         $('.cds-container.container').append(html_finale);
-    //     }
-// }
- // controllo l'input a sx a ogni tasto digitato (tranne canc e back-space se usassi keypress)
-
+    return testo_utente;
+};// chiudo il keyup
 
 });
+
+
+// function stampahtml(infodischi) {
+//     var schedadisco = $('#entry-template').html();
+//     var template_function = Handlebars.compile(schedadisco);
+//
+//     for (var i = 0; i < infodischi.length; i++) {
+//         var info= infodischi[i];
+//         var disco = {
+//             'poster': info.poster,
+//             'title' : info.title,
+//             'author': info.author,
+//             'year': info.year,
+//             'genre': info.genre,
+//             'classe': info.genre,
+//         }
+//         var html_finale = template_function(disco);
+//         $('.cds-container.container').append(html_finale);
+//     }
+// }
+// controllo l'input a sx a ogni tasto digitato (tranne canc e back-space se usassi keypress)

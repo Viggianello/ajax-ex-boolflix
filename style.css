@@ -29,6 +29,9 @@ header {
     float: right;
 }
 
+li{
+    color: white;
+}
 .invisible{
     display: none;
 }
