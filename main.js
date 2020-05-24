@@ -25,6 +25,7 @@ $(document).ready(function() {
         }// chiudo l'if controllo input inserito da tastiera tasto 13 ossia invio
     });// chiudo il keypress dell'input
 
+    // pulsante cerca funzione al suo click mostra i risultati della chiamata ajax
     $('#pulsante-ricerca').click(function() {
         // resetto l input da precedenti ricerche
         $('#risultati').html('');
@@ -55,6 +56,10 @@ function chiamataAjax(valore) {
                 var titoloOriginale = risultatoCorrente.original_title;
                 var lingua = risultatoCorrente.original_language;
                 var voto = risultatoCorrente.vote_average;
+                var copertina = 'http://image.tmdb.org/t/p/w342/' +     risultatoCorrente.backdrop_path;
+                var img = document.createElement("img");
+                img.src = copertina;
+                console.log(copertina);
                 // stampo i risultati ottenuti
                 // console.log('il titolo è: ' + titolo);
                 // console.log('il titolo originale è: ' + titoloOriginale);
@@ -66,6 +71,7 @@ function chiamataAjax(valore) {
                 }
                 $('#risultati').append('<li>' + 'la lingua è: ' + lingua + '</li>');
                 $('#risultati').append('<li>' + 'il voto è: ' + voto + '</li>');
+                $('#risultati').append(img);
             }
 
             // stampahtml(infodisco);
