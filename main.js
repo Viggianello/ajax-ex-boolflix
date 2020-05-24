@@ -71,7 +71,10 @@ function chiamataAjax(valore) {
                 }
                 $('#risultati').append('<li>' + 'la lingua è: ' + lingua + '</li>');
                 $('#risultati').append('<li>' + 'il voto è: ' + voto + '</li>');
-                $('#risultati').append(img);
+                if (risultatoCorrente.backdrop_path != null) {
+                    // se ci sono le immagini allora metto il tag img con src che è diverso da nulla(ossia esiste) e visualizzo tale immagine in pagina
+                    $('#risultati').append(img);
+                }
             }
 
             // stampahtml(infodisco);
