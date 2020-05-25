@@ -105,7 +105,6 @@ $(document).ready(function() {
                 'language': 'it'
             },
             'success': function(risposta) {
-            // var infodisco = riposta.response;
                 // stampo le informazioni per ogni disco
                 console.log(risposta);
                 // salvo i risultati
@@ -155,27 +154,27 @@ $(document).ready(function() {
     }// finefunzione chiamataAjax
 
     function stampaCard(oggetto, indice) {
+        var titorg= '';
+        if (oggetto.title != oggetto.original_title) {
+            titorg= oggetto.original_title;
+        }
+        var clasimg = 'invisible';
+        if (oggetto.backdrop_path != null) {
+            clasimg = '';
+        }
         var placeholder = {
             titolo: oggetto.title,
-            titoloOriginale: oggetto.original_title,
+            titoloOriginale: titorg,
             lingua:oggetto.original_language,
             voto: oggetto.vote_average,
             copertina: 'http://image.tmdb.org/t/p/w342/' +     oggetto.backdrop_path,
             descrizioneFilm: oggetto.overview,
-            // classeT: oggetto.original_title,
-            // classeI: oggetto.backdrop_path
+            classeI: clasimg,
             indiceVoto: indice,
             indiceLingua: indice + 100
         }
         var html_finale = template_function(placeholder);
         $('#risultati').append(html_finale);
-        // if (oggetto.title == oggetto.original_title) {
-        //     $('.oggetto.backdrop_path').addClass('invisible');
-        // }
-        // if (oggetto.backdrop_path == null) {
-        //     var titolo = oggetto.title;
-        //     $('#titolo').remove();
-        // }
         var indiceLingua= indice + 100;
         stelline(oggetto.vote_average, indice);
         bandiera(oggetto.original_language, indiceLingua);
