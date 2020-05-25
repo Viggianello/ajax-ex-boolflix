@@ -223,9 +223,9 @@ $(document).ready(function() {
     function stampaCardSerie(oggetto, indice) {
         // imposto il titolo originale a stringa vuota
         var titorg= '';
-        if (oggetto.title != oggetto.original_title) {
+        if (oggetto.name != oggetto.original_name) {
             // sono diversi quindi metto il titolo originale
-            titorg= oggetto.original_title;
+            titorg= oggetto.original_name;
         }
         // di base rendo le immagini non visibili
         var clasimg = 'invisible';
