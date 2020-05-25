@@ -20,13 +20,12 @@
                 <button id="pulsante-ricerca">CERCA</button>
             </div>
         </header>
-        <main id="risultati">
-
-        </main>
+        <main id="risultati"></main>
+        
         <script id="entry-template" type="text/x-handlebars-template">
             <ul class="card">
                 <li>{{titolo}}</li>
-                <li class="{{titoloOriginale}}">{{titoloOriginale}}</li>
+                <li class="titoloOriginale">{{titoloOriginale}}</li>
                 <li>{{lingua}}</li>
                 <li>{{voto}}</li>
                 <li class="copertina"> <img src="{{copertina}}" alt=""></li>

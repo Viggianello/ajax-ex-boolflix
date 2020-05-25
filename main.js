@@ -101,8 +101,9 @@ $(document).ready(function() {
 
             },
             'error':function(){
-                if (valore = '') {
+                if (valore == '') {
                     // va bene no problem
+                    console.log('reset pagina stato iniziale');
                 }
                 else if(valore != '') {
                     alert('errore');
