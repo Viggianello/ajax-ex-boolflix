@@ -14,6 +14,10 @@
 // Come vi dicevo, per il momento non è importante l'aspetto grafico: i risultati possono essere inseriti in pagina come semplici ul, anche senza handlebars.
 
 $(document).ready(function() {
+    // predispongo per inserire tramite la libreria handlebars i messaggi inviati dall utente
+    var handlebarsCard = $('#entry-template').html();
+    var template_function = Handlebars.compile(handlebarsCard);
+
     // Creo una funzione legata al invio inserito nell'input in modo tale da far partire la ricerca senza dover cliccare sul pulsante cerca
     $('#testo-ricerca').keypress().keypress(function(event){
         var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -53,30 +57,46 @@ $(document).ready(function() {
                 for (var i = 0; i < risultati.length; i++) {
                     // leggo per ogni risultato 1)titolo 2)titolo originale 3)lingua 4)voto 5)l'immagine copertina 6)la descrizione del film
                     var risultatoCorrente = risultati[i];
-                    var titolo = risultatoCorrente.title;
-                    var titoloOriginale = risultatoCorrente.original_title;
-                    var lingua = risultatoCorrente.original_language;
-                    var voto = risultatoCorrente.vote_average;
+                    // var titolo = risultatoCorrente.title;
+                    // var titoloOriginale = risultatoCorrente.original_title;
+                    // var lingua = risultatoCorrente.original_language;
+                    // var voto = risultatoCorrente.vote_average;
                     // http://image.tmdb.org/t/p/w342/3lUM7vYmKnse9qO7eYwZfhRiDVy.jpg
                     // ossia src completo di una immagine dove varia solo la parte dopo w342
-                    var copertina = 'http://image.tmdb.org/t/p/w342/' +     risultatoCorrente.backdrop_path;
-                    var img = document.createElement("img");
-                    img.src = copertina;
+                    // var copertina = 'http://image.tmdb.org/t/p/w342/' +     risultatoCorrente.backdrop_path;
+                    // var img = document.createElement("img");
+                    // img.src = copertina;
                     // recupero il testo che descrive il film
-                    var descrizione = risultatoCorrente.overview;
+                    // var descrizione = risultatoCorrente.overview;
                     // metto in pagina i dati estrapolati dalla URL
-                    $('#risultati').append('<li>' + 'il titolo è: ' + titolo + '</li>');
-                    if (titolo != titoloOriginale ) {
-                        $('#risultati').append('<li>' + 'il titolo originale è: ' + titoloOriginale + '</li>');
-                    }
-                    $('#risultati').append('<li>' + 'la lingua è: ' + lingua + '</li>');
-                    $('#risultati').append('<li>' + 'il voto è: ' + voto + '</li>');
-                    if (risultatoCorrente.backdrop_path != null) {
-                        // se ci sono le immagini allora metto il tag img con src che è diverso da nulla(ossia esiste) e visualizzo tale immagine in pagina
-                        $('#risultati').append(img);
-                    }
-                    $('#risultati').append('<p class="descrizioneFilm">'+ descrizione +'</p>');
+                    // $('#risultati').append('<li>' + 'il titolo è: ' + titolo + '</li>');
+                    // if (titolo != titoloOriginale ) {
+                    //     $('#risultati').append('<li>' + 'il titolo originale è: ' + titoloOriginale + '</li>');
+                    // }
+                    // $('#risultati').append('<li>' + 'la lingua è: ' + lingua + '</li>');
+                    // $('#risultati').append('<li>' + 'il voto è: ' + voto + '</li>');
+                    // if (risultatoCorrente.backdrop_path != null) {
+                    //     // se ci sono le immagini allora metto il tag img con src che è diverso da nulla(ossia esiste) e visualizzo tale immagine in pagina
+                    //     $('#risultati').append(img);
+                    // }
+                    // $('#risultati').append('<p class="descrizioneFilm">'+ descrizione +'</p>');
+                    var placeholder = {
+                        titolo: risultatoCorrente.title,
+                        titoloOriginale: risultatoCorrente.original_title,
+                        lingua:risultatoCorrente.original_language,
+                        voto: risultatoCorrente.vote_average,
+                        copertina: 'http://image.tmdb.org/t/p/w342/' +     risultatoCorrente.backdrop_path,
+                        descrizioneFilm: risultatoCorrente.overview
 
+                    }
+                    var html_finale = template_function(placeholder);
+                    $('#risultati').append(html_finale);
+                    if (risultatoCorrente.title == risultatoCorrente.original_title) {
+                        $('#risultati').remove('#risultati .titoloOriginale');
+                    }
+                    if (risultatoCorrente.backdrop_path == null) {
+                        $('#risultati').remove('#risultati .copertina');
+                    }
                 }// chiusura ciclo for
 
             },
@@ -94,7 +114,7 @@ $(document).ready(function() {
     }// finefunzione chiamataAjax
 
     function ricercaUtente(){
-        // recupero il testo dell utente (inserito nell input), tiro via gli spazi inutili e lo rendo tutto minuscolo (per un confronto migliore)
+        // recupero il testo dell'utente (inserito nell input), tiro via gli spazi inutili, lo rendo tutto minuscolo (per un confronto futuro migliore) e lo restituisco
         var testo_utente = $('#testo-ricerca').val().trim().toLowerCase();
         return testo_utente;
     }

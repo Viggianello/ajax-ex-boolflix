@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>ajax-ex-boolflix</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
@@ -14,14 +15,24 @@
                 <h1>BOOLFLIX</h1>
             </div>
             <div class="header-right">
-                <input type="text" id="testo-ricerca">
+                <input type="text" id="testo-ricerca"
+                placeholder="Cerca...">
                 <button id="pulsante-ricerca">CERCA</button>
             </div>
         </header>
         <main id="risultati">
-            
-        </main>
 
+        </main>
+        <script id="entry-template" type="text/x-handlebars-template">
+            <ul class="card">
+                <li>{{titolo}}</li>
+                <li class="{{titoloOriginale}}">{{titoloOriginale}}</li>
+                <li>{{lingua}}</li>
+                <li>{{voto}}</li>
+                <li class="copertina"> <img src="{{copertina}}" alt=""></li>
+                <li><p>{{descrizioneFilm}}</p></li>
+            </ul>
+        </script>
         <script src="main.js" charset="utf-8"></script>
     </body>
 </html>
