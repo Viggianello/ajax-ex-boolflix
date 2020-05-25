@@ -104,8 +104,7 @@ $(document).ready(function() {
         if(keycode == '13'){
             $('#risultati').html('');
             var valore = ricercaUtente();
-            chiamataAjaxMovie(valore);
-            chiamataAjaxSerie(valore);
+            chiamataAjax(valore);
         }// chiudo l'if controllo input inserito da tastiera tasto 13 ossia invio
     });// chiudo il keypress dell'input
 
@@ -114,49 +113,17 @@ $(document).ready(function() {
         // resetto l input da precedenti ricerche
         $('#risultati').html('');
         var valore = ricercaUtente();
-        chiamataAjaxMovie(valore);
-        chiamataAjaxSerie(valore);
+        chiamataAjax(valore);
     })
 
     // Creo una funzione per la chiamata ajax legata al parametro valore che sarà quello che leggeremo dall'input che metterà l'utente
 
-    function chiamataAjaxSerie(valore) {
-        //Chiamata ajax
-        $.ajax({
-            'url': 'https://api.themoviedb.org/3/search/tv',
-            'method': 'GET',
-            'data': {
-                'api_key': '4a0b8c67695163b99de0216fcb0bfb27',
-                'query': valore,
-                'language': 'it'
-            },
-            'success': function(risposta) {
-                // stampo le informazioni per ogni disco
-                console.log(risposta);
-                // salvo i risultati
-                var risultati = risposta.results;
-                for (var i = 0; i < risultati.length; i++) {
-                    var risultatoCorrente = risultati[i];
-                    stampaCardSerie(risultatoCorrente, i);
-                }// chiusura ciclo for
+    // function chiamataAjaxSerie(valore) {
+    //
+    // }// finefunzione chiamataAjax
 
-            },
-            'error':function(){
-                if (valore == '') {
-                    // va bene no problem
-                    console.log('reset pagina stato iniziale');
-                }
-                else if(valore != '') {
-                    alert('errore');
-                }
-
-            }
-        }// fine oggetto
-        );
-    }// finefunzione chiamataAjax
-
-    function chiamataAjaxMovie(valore) {
-        //Chiamata ajax
+    function chiamataAjax(valore) {
+        //Chiamata ajax film
         $.ajax({
             'url': 'https://api.themoviedb.org/3/search/movie',
             'method': 'GET',
@@ -172,7 +139,7 @@ $(document).ready(function() {
                 var risultati = risposta.results;
                 for (var i = 0; i < risultati.length; i++) {
                     var risultatoCorrente = risultati[i];
-                    stampaCard(risultatoCorrente, i);
+                    stampaCard(risultatoCorrente, i, 'film');
                 }// chiusura ciclo for
 
             },
@@ -188,69 +155,79 @@ $(document).ready(function() {
             }
         }// fine oggetto
         );
+        // Chiamata ajax serie tv
+            $.ajax({
+                'url': 'https://api.themoviedb.org/3/search/tv' ,
+                'method': 'GET',
+                'data': {
+                    'api_key': '4a0b8c67695163b99de0216fcb0bfb27',
+                    'query': valore,
+                    'language': 'it'
+                },
+                'success': function(risposta) {
+                    // stampo le informazioni per ogni disco
+                    console.log(risposta);
+                    // salvo i risultati
+                    var risultati = risposta.results;
+                    for (var i = 0; i < risultati.length; i++) {
+                        var risultatoCorrente = risultati[i];
+                        stampaCard(risultatoCorrente, i, 'serie');
+                    }// chiusura ciclo for
+
+                },
+                'error':function(){
+                    if (valore == '') {
+                        // va bene no problem
+                        console.log('reset pagina stato iniziale');
+                    }
+                    else if(valore != '') {
+                        alert('errore');
+                    }
+
+                }
+            }// fine oggetto
+            );
     }// finefunzione chiamataAjax
 
-    function stampaCard(oggetto, indice) {
-        // imposto il titolo originale a stringa vuota
-        var titorg= '';
-        if (oggetto.title != oggetto.original_title) {
-            // sono diversi quindi metto il titolo originale
-            titorg= oggetto.original_title;
+    function stampaCard(oggetto, indice, ricercaTipologia) {
+        // controllo che la chiamata sia relativa ai movie
+        if (ricercaTipologia=='film') {
+            var titolo = oggetto.title;
+            var originaltitle= oggetto.original_title;
         }
-        // di base rendo le immagini non visibili
-        var clasimg = 'invisible';
-        if (oggetto.backdrop_path != null) {
-            // se l'immagine esiste tiro via l'invisibilità rendendo dunque le immagini visibili
-            clasimg = '';
+        // controllo che la chiamata sia relativa ai tv
+        else if (ricercaTipologia=='serie') {
+            var titolo = oggetto.name;
+            var originaltitle = oggetto.original_name;
         }
-        var placeholder = {
-            titolo: oggetto.title,
-            titoloOriginale: titorg,
-            lingua:oggetto.original_language,
-            voto: oggetto.vote_average,
-            copertina: 'http://image.tmdb.org/t/p/w342/' +     oggetto.backdrop_path,
-            descrizioneFilm: oggetto.overview,
-            classeI: clasimg,
-            indiceVoto: indice,
-            indiceLingua: indice + 100
+        if (titolo == originaltitle) {
+            // sono uguali quindi li nascondo
+            originaltitle = '';
         }
-        var html_finale = template_function(placeholder);
-        $('#risultati').append(html_finale);
-        var indiceLingua= indice + 100;
-        stelline(oggetto.vote_average, indice);
-        bandiera(oggetto.original_language, indiceLingua);
-    }
-    function stampaCardSerie(oggetto, indice) {
-        // imposto il titolo originale a stringa vuota
-        var titorg= '';
-        if (oggetto.name != oggetto.original_name) {
-            // sono diversi quindi metto il titolo originale
-            titorg= oggetto.original_name;
-        }
-        // di base rendo le immagini non visibili
-        var clasimg = 'invisible';
-        if (oggetto.backdrop_path != null) {
-            // se l'immagine esiste tiro via l'invisibilità rendendo dunque le immagini visibili
-            clasimg = '';
-        }
-        var placeholder = {
-            titolo: oggetto.name,
-            titoloOriginale: titorg,
-            lingua:oggetto.original_language,
-            voto: oggetto.vote_average,
-            copertina: 'http://image.tmdb.org/t/p/w342/' +     oggetto.backdrop_path,
-            descrizioneFilm: oggetto.overview,
-            classeI: clasimg,
-            indiceVoto: indice,
-            indiceLingua: indice + 100
-        }
-        var html_finale = template_function(placeholder);
-        $('#risultati').append(html_finale);
-        var indiceLingua= indice + 100;
-        stelline(oggetto.vote_average, indice);
-        bandiera(oggetto.original_language, indiceLingua);
-    }
 
+        // di base rendo le immagini non visibili
+        var clasimg = 'invisible';
+        if (oggetto.backdrop_path != null) {
+            // se l'immagine esiste tiro via l'invisibilità rendendo dunque le immagini visibili
+            clasimg = '';
+        }
+        var placeholder = {
+            titolo: titolo,
+            titoloOriginale: originaltitle,
+            lingua:oggetto.original_language,
+            voto: oggetto.vote_average,
+            copertina: 'http://image.tmdb.org/t/p/w342/' +     oggetto.backdrop_path,
+            descrizioneFilm: oggetto.overview,
+            classeI: clasimg,
+            indiceVoto: indice,
+            indiceLingua: indice + 100
+        }
+        var html_finale = template_function(placeholder);
+        $('#risultati').append(html_finale);
+        var indiceLingua= indice + 100;
+        stelline(oggetto.vote_average, indice);
+        bandiera(oggetto.original_language, indiceLingua);
+    }
 
     function ricercaUtente(){
         // recupero il testo dell'utente (inserito nell input), tiro via gli spazi inutili, lo rendo tutto minuscolo (per un confronto futuro migliore) e lo restituisco
