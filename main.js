@@ -158,6 +158,8 @@ $(document).ready(function() {
         // uso la funzione math.round per arrotondare in eccesso il numero se esempio: 4,4= 4  4,6= 5
         var nStelle = 5;
         var nStellePiene = Math.round(voto /2 );
+        // cancello il voto in numero
+        $('.'+ncard).html('');
         for (var n = 0; n < nStellePiene; n++) {
             // uso questo selettore particolare
             $('.'+ncard).append('<i class="fas fa-star"></i>');
@@ -170,6 +172,6 @@ $(document).ready(function() {
                 $('.'+ncard).append('<i class="far fa-star"></i>');
             }
         }
-        console.log(nStellePiene);
+        // console.log(nStellePiene);
     }
 });
