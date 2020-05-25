@@ -104,7 +104,8 @@ $(document).ready(function() {
         if(keycode == '13'){
             $('#risultati').html('');
             var valore = ricercaUtente();
-            chiamataAjax(valore);
+            chiamataAjaxMovie(valore);
+            chiamataAjaxSerie(valore);
         }// chiudo l'if controllo input inserito da tastiera tasto 13 ossia invio
     });// chiudo il keypress dell'input
 
@@ -113,11 +114,48 @@ $(document).ready(function() {
         // resetto l input da precedenti ricerche
         $('#risultati').html('');
         var valore = ricercaUtente();
-        chiamataAjax(valore);
+        chiamataAjaxMovie(valore);
+        chiamataAjaxSerie(valore);
     })
 
     // Creo una funzione per la chiamata ajax legata al parametro valore che sarà quello che leggeremo dall'input che metterà l'utente
-    function chiamataAjax(valore) {
+
+    function chiamataAjaxSerie(valore) {
+        //Chiamata ajax
+        $.ajax({
+            'url': 'https://api.themoviedb.org/3/search/tv',
+            'method': 'GET',
+            'data': {
+                'api_key': '4a0b8c67695163b99de0216fcb0bfb27',
+                'query': valore,
+                'language': 'it'
+            },
+            'success': function(risposta) {
+                // stampo le informazioni per ogni disco
+                console.log(risposta);
+                // salvo i risultati
+                var risultati = risposta.results;
+                for (var i = 0; i < risultati.length; i++) {
+                    var risultatoCorrente = risultati[i];
+                    stampaCardSerie(risultatoCorrente, i);
+                }// chiusura ciclo for
+
+            },
+            'error':function(){
+                if (valore == '') {
+                    // va bene no problem
+                    console.log('reset pagina stato iniziale');
+                }
+                else if(valore != '') {
+                    alert('errore');
+                }
+
+            }
+        }// fine oggetto
+        );
+    }// finefunzione chiamataAjax
+
+    function chiamataAjaxMovie(valore) {
         //Chiamata ajax
         $.ajax({
             'url': 'https://api.themoviedb.org/3/search/movie',
@@ -133,31 +171,7 @@ $(document).ready(function() {
                 // salvo i risultati
                 var risultati = risposta.results;
                 for (var i = 0; i < risultati.length; i++) {
-                    // leggo per ogni risultato 1)titolo 2)titolo originale 3)lingua 4)voto 5)l'immagine copertina 6)la descrizione del film
                     var risultatoCorrente = risultati[i];
-                    // var titolo = risultatoCorrente.title;
-                    // var titoloOriginale = risultatoCorrente.original_title;
-                    // var lingua = risultatoCorrente.original_language;
-                    // var voto = risultatoCorrente.vote_average;
-                    // http://image.tmdb.org/t/p/w342/3lUM7vYmKnse9qO7eYwZfhRiDVy.jpg
-                    // ossia src completo di una immagine dove varia solo la parte dopo w342
-                    // var copertina = 'http://image.tmdb.org/t/p/w342/' +     risultatoCorrente.backdrop_path;
-                    // var img = document.createElement("img");
-                    // img.src = copertina;
-                    // recupero il testo che descrive il film
-                    // var descrizione = risultatoCorrente.overview;
-                    // metto in pagina i dati estrapolati dalla URL
-                    // $('#risultati').append('<li>' + 'il titolo è: ' + titolo + '</li>');
-                    // if (titolo != titoloOriginale ) {
-                    //     $('#risultati').append('<li>' + 'il titolo originale è: ' + titoloOriginale + '</li>');
-                    // }
-                    // $('#risultati').append('<li>' + 'la lingua è: ' + lingua + '</li>');
-                    // $('#risultati').append('<li>' + 'il voto è: ' + voto + '</li>');
-                    // if (risultatoCorrente.backdrop_path != null) {
-                    //     // se ci sono le immagini allora metto il tag img con src che è diverso da nulla(ossia esiste) e visualizzo tale immagine in pagina
-                    //     $('#risultati').append(img);
-                    // }
-                    // $('#risultati').append('<p class="descrizioneFilm">'+ descrizione +'</p>');
                     stampaCard(risultatoCorrente, i);
                 }// chiusura ciclo for
 
@@ -206,6 +220,37 @@ $(document).ready(function() {
         stelline(oggetto.vote_average, indice);
         bandiera(oggetto.original_language, indiceLingua);
     }
+    function stampaCardSerie(oggetto, indice) {
+        // imposto il titolo originale a stringa vuota
+        var titorg= '';
+        if (oggetto.title != oggetto.original_title) {
+            // sono diversi quindi metto il titolo originale
+            titorg= oggetto.original_title;
+        }
+        // di base rendo le immagini non visibili
+        var clasimg = 'invisible';
+        if (oggetto.backdrop_path != null) {
+            // se l'immagine esiste tiro via l'invisibilità rendendo dunque le immagini visibili
+            clasimg = '';
+        }
+        var placeholder = {
+            titolo: oggetto.name,
+            titoloOriginale: titorg,
+            lingua:oggetto.original_language,
+            voto: oggetto.vote_average,
+            copertina: 'http://image.tmdb.org/t/p/w342/' +     oggetto.backdrop_path,
+            descrizioneFilm: oggetto.overview,
+            classeI: clasimg,
+            indiceVoto: indice,
+            indiceLingua: indice + 100
+        }
+        var html_finale = template_function(placeholder);
+        $('#risultati').append(html_finale);
+        var indiceLingua= indice + 100;
+        stelline(oggetto.vote_average, indice);
+        bandiera(oggetto.original_language, indiceLingua);
+    }
+
 
     function ricercaUtente(){
         // recupero il testo dell'utente (inserito nell input), tiro via gli spazi inutili, lo rendo tutto minuscolo (per un confronto futuro migliore) e lo restituisco
