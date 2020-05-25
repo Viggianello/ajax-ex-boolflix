@@ -44,7 +44,6 @@ $(document).ready(function() {
     var handlebarsCard = $('#entry-template').html();
     var template_function = Handlebars.compile(handlebarsCard);
 
-
     // Creo una funzione che sostituisce la sigla che indica la lingua con una sua bandiera corrispondente, se presente tra le varie bandiere possibili se no lascio la sigla
     function bandiera(nazione,ncardpiu100) {
         // Creo un contenitore per tutte le bandiere
@@ -54,12 +53,18 @@ $(document).ready(function() {
         var bandIng = '<img src="img/inglese.png" alt="">';
         var bandFra = '<img src="img/francese.png" alt="">';
         var bandTed = '<img src="img/tedesca.png" alt="">';
+        var bandRus = '<img src="img/russa.png" alt="">';
+        var bandCec = '<img src="img/ceca.png" alt="">';
+        var bandCin = '<img src="img/cinese.png" alt="">';
         // metto le bandiere dentro il contenitore
         bandiereStati.push(bandIta);
         bandiereStati.push(bandIng);
         bandiereStati.push(bandFra);
         bandiereStati.push(bandTed);
-        console.log(bandiereStati);
+        bandiereStati.push(bandRus);
+        bandiereStati.push(bandCec);
+        bandiereStati.push(bandCin);
+        // console.log(bandiereStati);
         // bandiereStati = [banIta, bandIng, bandFra];
         if (nazione == 'it') {
             // cancello la sigla della lingua
@@ -77,6 +82,18 @@ $(document).ready(function() {
         else if (nazione == 'de') {
             $('.' + ncardpiu100).html('');
             $('.' + ncardpiu100).html(bandTed)
+        }
+        else if (nazione == 'ru') {
+            $('.' + ncardpiu100).html('');
+            $('.' + ncardpiu100).html(bandRus)
+        }
+        else if (nazione == 'cs') {
+            $('.' + ncardpiu100).html('');
+            $('.' + ncardpiu100).html(bandCec)
+        }
+        else if (nazione == 'zh') {
+            $('.' + ncardpiu100).html('');
+            $('.' + ncardpiu100).html(bandCin)
         }
     // allora non l'ho in elenco e lascio la sigla
     }
