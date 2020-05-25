@@ -159,7 +159,16 @@ $(document).ready(function() {
         var nStelle = 5;
         var nStellePiene = Math.round(voto /2 );
         for (var n = 0; n < nStellePiene; n++) {
+            // uso questo selettore particolare
             $('.'+ncard).append('<i class="fas fa-star"></i>');
+        }
+        if (nStelle!= nStellePiene) {
+            var nStelleVuote = nStelle - nStellePiene;
+            console.log(nStelleVuote);
+            for (var l = 0; l < nStelleVuote; l++) {
+                // uso questo selettore particolare
+                $('.'+ncard).append('<i class="far fa-star"></i>');
+            }
         }
         console.log(nStellePiene);
     }
