@@ -81,7 +81,13 @@ $(document).ready(function() {
 
             },
             'error':function(){
-                alert('errore');
+                if (valore = '') {
+                    // va bene no problem
+                }
+                else if(valore != '') {
+                    alert('errore');
+                }
+
             }
         }// fine oggetto
         );
