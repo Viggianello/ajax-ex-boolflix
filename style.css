@@ -25,6 +25,9 @@ header {
 }
 #risultati{
     padding-top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 li{
     color: white;
@@ -41,6 +44,11 @@ p{
     padding: 5px;
 }
 img{
+    margin: 5px;
+    /* per far vedere la badiera tedesca che ha il nero fra i sui colori */
+    border: 1px solid white;
+}
+.card{
     margin: 5px;
     /* per far vedere la badiera tedesca che ha il nero fra i sui colori */
     border: 1px solid white;
