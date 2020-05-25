@@ -44,6 +44,36 @@ $(document).ready(function() {
     var handlebarsCard = $('#entry-template').html();
     var template_function = Handlebars.compile(handlebarsCard);
 
+
+    // Creo una funzione che sostituisce la sigla che indica la lingua con una sua bandiera corrispondente, se presente tra le varie bandiere possibili se no lascio la sigla
+    function bandiera(nazione,ncardpiu100) {
+        // Creo un contenitore per tutte le bandiere
+        var bandiereStati = [];
+        // mi salvo le bandiere trovate
+        var bandIta = '<img src="img/italiana.png" alt="">';
+        var bandIng = '<img src="img/inglese.png" alt="">';
+        var bandFra = '<img src="img/francese.png" alt="">';
+        // metto le bandiere dentro il contenitore
+        bandiereStati.push(bandIta);
+        bandiereStati.push(bandIng);
+        bandiereStati.push(bandFra);
+        console.log(bandiereStati);
+        // bandiereStati = [banIta, bandIng, bandFra];
+        if (nazione == 'it') {
+            // cancello la sigla della lingua
+            $('.'+ncardpiu100).html('');
+            $('.'+ncardpiu100).html(bandIta)
+        }
+        else if (nazione == 'en') {
+            $('.'+ncardpiu100).html('');
+            $('.'+ncardpiu100).html(bandIng)
+        }
+        else if (nazione == 'fr') {
+            $('.'+ncardpiu100).html('');
+            $('.'+ncardpiu100).html(bandFra)
+        }
+    // allora non l'ho in elenco e lascio la sigla
+    }
     // Creo una funzione legata al invio inserito nell'input in modo tale da far partire la ricerca senza dover cliccare sul pulsante cerca
     $('#testo-ricerca').keypress().keypress(function(event){
         var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -134,7 +164,8 @@ $(document).ready(function() {
             descrizioneFilm: oggetto.overview,
             // classeT: oggetto.original_title,
             // classeI: oggetto.backdrop_path
-            indiceVoto: indice
+            indiceVoto: indice,
+            indiceLingua: indice + 100
         }
         var html_finale = template_function(placeholder);
         $('#risultati').append(html_finale);
@@ -145,7 +176,9 @@ $(document).ready(function() {
         //     var titolo = oggetto.title;
         //     $('#titolo').remove();
         // }
+        var indiceLingua= indice + 100;
         stelline(oggetto.vote_average, indice);
+        bandiera(oggetto.original_language, indiceLingua);
     }
 
     function ricercaUtente(){
