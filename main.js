@@ -106,7 +106,7 @@ $(document).ready(function() {
                     //     $('#risultati').append(img);
                     // }
                     // $('#risultati').append('<p class="descrizioneFilm">'+ descrizione +'</p>');
-                    stampaCard(risultatoCorrente);
+                    stampaCard(risultatoCorrente, i);
                 }// chiusura ciclo for
 
             },
@@ -124,7 +124,7 @@ $(document).ready(function() {
         );
     }// finefunzione chiamataAjax
 
-    function stampaCard(oggetto) {
+    function stampaCard(oggetto, indice) {
         var placeholder = {
             titolo: oggetto.title,
             titoloOriginale: oggetto.original_title,
@@ -134,6 +134,7 @@ $(document).ready(function() {
             descrizioneFilm: oggetto.overview,
             // classeT: oggetto.original_title,
             // classeI: oggetto.backdrop_path
+            indiceVoto: indice
         }
         var html_finale = template_function(placeholder);
         $('#risultati').append(html_finale);
@@ -144,7 +145,7 @@ $(document).ready(function() {
         //     var titolo = oggetto.title;
         //     $('#titolo').remove();
         // }
-        stelline(oggetto.vote_average);
+        stelline(oggetto.vote_average, indice);
     }
 
     function ricercaUtente(){
@@ -153,8 +154,13 @@ $(document).ready(function() {
         return testo_utente;
     }
     // Trasformo il voto da 1 a 10 decimale in un numero intero da 1 a 5
-    function stelline(voto) {
-        var nStelle = parseInt(voto /2 );
-        console.log(nStelle);
+    function stelline(voto, ncard) {
+        // uso la funzione math.round per arrotondare in eccesso il numero se esempio: 4,4= 4  4,6= 5
+        var nStelle = 5;
+        var nStellePiene = Math.round(voto /2 );
+        for (var n = 0; n < nStellePiene; n++) {
+            $('.'+ncard).append('<i class="fas fa-star"></i>');
+        }
+        console.log(nStellePiene);
     }
 });
