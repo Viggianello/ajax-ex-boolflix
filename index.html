@@ -21,14 +21,14 @@
             </div>
         </header>
         <main id="risultati"></main>
-        
+
         <script id="entry-template" type="text/x-handlebars-template">
             <ul class="card">
                 <li>{{titolo}}</li>
-                <li class="titoloOriginale">{{titoloOriginale}}</li>
+                <li class="{{classeT}}">{{titoloOriginale}}</li>
                 <li>{{lingua}}</li>
                 <li>{{voto}}</li>
-                <li class="copertina"> <img src="{{copertina}}" alt=""></li>
+                <li class="{{classeI}}"> <img src="{{copertina}}" alt=""></li>
                 <li><p>{{descrizioneFilm}}</p></li>
             </ul>
         </script>

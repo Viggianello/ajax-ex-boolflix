@@ -4,7 +4,7 @@
 // https://api.themoviedb.org/3/search/movie
 // esempio: https://api.themoviedb.org/3/search/movie?api_key=4a0b8c67695163b99de0216fcb0bfb27&language=en-US&query=Batman&page=1&include_adult=false
 // ? fa da separatore tra l url e inizio dei dati
-
+// Milestone 1:
 // Predisporre quindi un layout molto semplice con una barra di ricerca e un pulsante: al click sul pulsante fare partire una chiamata ajax a tmdb per recuperare i film che corrispondo alla query di ricerca inserita dall'utente.
 // Ciclare i risultati e per ogni film restituito, stamparne in pagina:
 // titolo
@@ -12,6 +12,32 @@
 // lingua
 // voto
 // Come vi dicevo, per il momento non è importante l'aspetto grafico: i risultati possono essere inseriti in pagina come semplici ul, anche senza handlebars.
+// Milestone 2:
+// Trasformiamo il voto da 1 a 10 decimale in un numero intero da 1 a 5, così da
+// permetterci di stampare a schermo un numero di stelle piene che vanno da 1 a 5,
+// lasciando le restanti vuote (troviamo le icone in FontAwesome).
+// Arrotondiamo sempre per eccesso all’unità successiva, non gestiamo icone mezze
+// piene (o mezze vuote :P)
+// Trasformiamo poi la stringa statica della lingua in una vera e propria bandiera della
+// nazione corrispondente, gestendo il caso in cui non abbiamo la bandiera della
+// nazione ritornata dall’API (le flag non ci sono in FontAwesome).
+// Allarghiamo poi la ricerca anche alle serie tv. Con la stessa azione di ricerca
+// dovremo prendere sia i film che corrispondono alla query, sia le serie tv, stando
+// attenti ad avere alla fine dei valori simili (le serie e i film hanno campi nel JSON di
+// risposta diversi, simili ma non sempre identici)
+// Qui un esempio di chiamata per le serie tv:
+// https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d&language=it_IT&query=s
+// Milestone 3:
+// In questa milestone come prima cosa aggiungiamo la copertina del film o della serie
+// al nostro elenco. Ci viene passata dall’API solo la parte finale dell’URL, questo
+// perché poi potremo generare da quella porzione di URL tante dimensioni diverse.
+// Dovremo prendere quindi l’URL base delle immagini di TMDB:
+// https://image.tmdb.org/t/p/ per poi aggiungere la dimensione che vogliamo generare
+// (troviamo tutte le dimensioni possibili a questo link:
+// https://www.themoviedb.org/talk/53c11d4ec3a3684cf4006400 ) per poi aggiungere la
+// parte finale dell’URL passata dall’API.
+// Esempio di URL che torna la copertina di BORIS:
+// https://image.tmdb.org/t/p/w185/s2VDcsMh9ZhjFUxw77uCFDpTuXp.jpg
 
 $(document).ready(function() {
     // predispongo per inserire tramite la libreria handlebars i messaggi inviati dall utente
@@ -80,23 +106,7 @@ $(document).ready(function() {
                     //     $('#risultati').append(img);
                     // }
                     // $('#risultati').append('<p class="descrizioneFilm">'+ descrizione +'</p>');
-                    var placeholder = {
-                        titolo: risultatoCorrente.title,
-                        titoloOriginale: risultatoCorrente.original_title,
-                        lingua:risultatoCorrente.original_language,
-                        voto: risultatoCorrente.vote_average,
-                        copertina: 'http://image.tmdb.org/t/p/w342/' +     risultatoCorrente.backdrop_path,
-                        descrizioneFilm: risultatoCorrente.overview
-
-                    }
-                    var html_finale = template_function(placeholder);
-                    $('#risultati').append(html_finale);
-                    if (risultatoCorrente.title == risultatoCorrente.original_title) {
-                        $('#risultati').remove('#risultati .titoloOriginale');
-                    }
-                    if (risultatoCorrente.backdrop_path == null) {
-                        $('#risultati').remove('#risultati .copertina');
-                    }
+                    stampaCard(risultatoCorrente);
                 }// chiusura ciclo for
 
             },
@@ -114,10 +124,37 @@ $(document).ready(function() {
         );
     }// finefunzione chiamataAjax
 
+    function stampaCard(oggetto) {
+        var placeholder = {
+            titolo: oggetto.title,
+            titoloOriginale: oggetto.original_title,
+            lingua:oggetto.original_language,
+            voto: oggetto.vote_average,
+            copertina: 'http://image.tmdb.org/t/p/w342/' +     oggetto.backdrop_path,
+            descrizioneFilm: oggetto.overview,
+            // classeT: oggetto.original_title,
+            // classeI: oggetto.backdrop_path
+        }
+        var html_finale = template_function(placeholder);
+        $('#risultati').append(html_finale);
+        // if (oggetto.title == oggetto.original_title) {
+        //     $('.oggetto.backdrop_path').addClass('invisible');
+        // }
+        // if (oggetto.backdrop_path == null) {
+        //     var titolo = oggetto.title;
+        //     $('#titolo').remove();
+        // }
+        stelline(oggetto.vote_average);
+    }
+
     function ricercaUtente(){
         // recupero il testo dell'utente (inserito nell input), tiro via gli spazi inutili, lo rendo tutto minuscolo (per un confronto futuro migliore) e lo restituisco
         var testo_utente = $('#testo-ricerca').val().trim().toLowerCase();
         return testo_utente;
     }
-
+    // Trasformo il voto da 1 a 10 decimale in un numero intero da 1 a 5
+    function stelline(voto) {
+        var nStelle = parseInt(voto /2 );
+        console.log(nStelle);
+    }
 });
