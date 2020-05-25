@@ -41,5 +41,7 @@ p{
     padding: 5px;
 }
 img{
-    padding: 5px;
+    margin: 5px;
+    /* per far vedere la badiera tedesca che ha il nero fra i sui colori */
+    border: 1px solid white;
 }

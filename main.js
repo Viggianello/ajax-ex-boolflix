@@ -53,24 +53,30 @@ $(document).ready(function() {
         var bandIta = '<img src="img/italiana.png" alt="">';
         var bandIng = '<img src="img/inglese.png" alt="">';
         var bandFra = '<img src="img/francese.png" alt="">';
+        var bandTed = '<img src="img/tedesca.png" alt="">';
         // metto le bandiere dentro il contenitore
         bandiereStati.push(bandIta);
         bandiereStati.push(bandIng);
         bandiereStati.push(bandFra);
+        bandiereStati.push(bandTed);
         console.log(bandiereStati);
         // bandiereStati = [banIta, bandIng, bandFra];
         if (nazione == 'it') {
             // cancello la sigla della lingua
-            $('.'+ncardpiu100).html('');
-            $('.'+ncardpiu100).html(bandIta)
+            $('.' + ncardpiu100).html('');
+            $('.' + ncardpiu100).html(bandIta)
         }
         else if (nazione == 'en') {
-            $('.'+ncardpiu100).html('');
-            $('.'+ncardpiu100).html(bandIng)
+            $('.' + ncardpiu100).html('');
+            $('.' + ncardpiu100).html(bandIng)
         }
         else if (nazione == 'fr') {
-            $('.'+ncardpiu100).html('');
-            $('.'+ncardpiu100).html(bandFra)
+            $('.' + ncardpiu100).html('');
+            $('.' + ncardpiu100).html(bandFra)
+        }
+        else if (nazione == 'de') {
+            $('.' + ncardpiu100).html('');
+            $('.' + ncardpiu100).html(bandTed)
         }
     // allora non l'ho in elenco e lascio la sigla
     }
@@ -154,12 +160,16 @@ $(document).ready(function() {
     }// finefunzione chiamataAjax
 
     function stampaCard(oggetto, indice) {
+        // imposto il titolo originale a stringa vuota
         var titorg= '';
         if (oggetto.title != oggetto.original_title) {
+            // sono diversi quindi metto il titolo originale
             titorg= oggetto.original_title;
         }
+        // di base rendo le immagini non visibili
         var clasimg = 'invisible';
         if (oggetto.backdrop_path != null) {
+            // se l'immagine esiste tiro via l'invisibilità rendendo dunque le immagini visibili
             clasimg = '';
         }
         var placeholder = {
@@ -191,17 +201,18 @@ $(document).ready(function() {
         var nStelle = 5;
         var nStellePiene = Math.round(voto /2 );
         // cancello il voto in numero
-        $('.'+ncard).html('');
+        $('.' + ncard).html('');
         for (var n = 0; n < nStellePiene; n++) {
             // uso questo selettore particolare
-            $('.'+ncard).append('<i class="fas fa-star"></i>');
+            $('.' + ncard).append('<i class="fas fa-star"></i>');
         }
         if (nStelle!= nStellePiene) {
+            // calcolo le stelle vuote
             var nStelleVuote = nStelle - nStellePiene;
-            console.log(nStelleVuote);
+            // console.log(nStelleVuote);
             for (var l = 0; l < nStelleVuote; l++) {
                 // uso questo selettore particolare
-                $('.'+ncard).append('<i class="far fa-star"></i>');
+                $('.' + ncard).append('<i class="far fa-star"></i>');
             }
         }
         // console.log(nStellePiene);
