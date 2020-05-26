@@ -58,7 +58,7 @@ $(document).ready(function() {
     });
 
     // ● Uscendo con il mouse da sopra una card si nascondono le informazionioni
-    $('#risultati').on('mouseleave', '.card', function() {
+    $('#risultati').on('click', '.card', function() {
         $(this).find('div').addClass('hide')
         // alert('ciao');
     });
