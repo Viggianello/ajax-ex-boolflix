@@ -27,6 +27,7 @@
 // risposta diversi, simili ma non sempre identici)
 // Qui un esempio di chiamata per le serie tv:
 // https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d&language=it_IT&query=s
+
 // Milestone 3:
 // In questa milestone come prima cosa aggiungiamo la copertina del film o della serie
 // al nostro elenco. Ci viene passata dall’API solo la parte finale dell’URL, questo
@@ -39,7 +40,24 @@
 // Esempio di URL che torna la copertina di BORIS:
 // https://image.tmdb.org/t/p/w185/s2VDcsMh9ZhjFUxw77uCFDpTuXp.jpg
 
+// Milestone 4:
+// Trasformiamo quello che abbiamo fatto fino ad ora in una vera e propria webapp,
+// creando un layout completo simil-Netflix:
+// ● Un header che contiene logo e search bar
+// ● Dopo aver ricercato qualcosa nella searchbar, i risultati appaiono sotto forma
+// di “card” in cui lo sfondo è rappresentato dall’immagine di copertina ( consiglio
+// la poster_path con w342 )
+// ● Andando con il mouse sopra una card (on hover), appaiono le informazioni
+// aggiuntive già prese nei punti precedenti più la overview
+
 $(document).ready(function() {
+    // ● Andando con il mouse sopra una card (on hover), appaiono le informazionion
+    // NON FUNZIONA COME MAI?
+    $('#risultati').on('hover', '.card', function() {
+        console.log('ciao');
+
+        // alert('ciao');
+    });
     // predispongo per inserire tramite la libreria handlebars i messaggi inviati dall utente
     var handlebarsCard = $('#entry-template').html();
     var template_function = Handlebars.compile(handlebarsCard);
@@ -216,6 +234,7 @@ $(document).ready(function() {
             titoloOriginale: originaltitle,
             lingua:oggetto.original_language,
             voto: oggetto.vote_average,
+            // possibili dimensioni immagini-->"poster_sizes": ["w92",w154","w185","w342","w500","w780","original"],
             copertina: 'http://image.tmdb.org/t/p/w342/' +     oggetto.backdrop_path,
             descrizioneFilm: oggetto.overview,
             classeI: clasimg,

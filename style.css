@@ -5,14 +5,15 @@
     box-sizing: border-box;
 }
 body {
-    background: black;
+    background: gray;
 }
 header {
-    background-color: grey;
+    background-color: black;
     width: 100%;
     height: 100px;
     position: fixed;
     padding: 40px 30px;
+    border-bottom: 1px solid lightgray;
 }
 .header-left{
     float: left;
@@ -39,6 +40,7 @@ li{
 }
 button{
     cursor: pointer;
+    background-color: red;
 }
 p{
     padding: 5px;
@@ -47,9 +49,13 @@ img{
     margin: 5px;
     /* per far vedere la badiera tedesca che ha il nero fra i sui colori */
     border: 1px solid white;
+    max-width: 96%;
 }
 .card{
+    background-color: black;
     margin: 5px;
     /* per far vedere la badiera tedesca che ha il nero fra i sui colori */
     border: 1px solid white;
+    width: 250px;
+    height: 990px;
 }
