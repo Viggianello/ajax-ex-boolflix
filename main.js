@@ -51,9 +51,15 @@
 // aggiuntive già prese nei punti precedenti più la overview
 
 $(document).ready(function() {
-    // ● Andando con il mouse sopra una card e appaiono le informazionion
+    // ● Andando con il mouse sopra una card e appaiono le informazionioni
     $('#risultati').on('mouseenter', '.card', function() {
         $(this).find('.hide').removeClass('hide')
+        // alert('ciao');
+    });
+
+    // ● Uscendo con il mouse da sopra una card si nascondono le informazionioni
+    $('#risultati').on('mouseleave', '.card', function() {
+        $(this).find('div').addClass('hide')
         // alert('ciao');
     });
     // predispongo per inserire tramite la libreria handlebars i messaggi inviati dall utente
