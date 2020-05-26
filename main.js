@@ -53,11 +53,14 @@
 $(document).ready(function() {
     // // ● Andando con il mouse sopra una card e appaiono le informazionioni
     // $('#risultati').on('mouseenter', '.card', function() {
-    //     $(this).find('.hide').removeClass('hide')
-    //     // alert('ciao');
+    //     $(this).find('div').removeClass('hide')
     // });
 
     // ● Uscendo con il mouse da sopra una card si nascondono le informazionioni
+    // $('#risultati').on('mouseleave', '.card', function() {
+    //     $(this).find('div').removeClass('hide')
+    // });
+    // ● Cliccando su una card appaiono e si nascondono le informazionioni
     $('#risultati').on('click', '.card', function() {
         var ctrl= $(this).find('div');
         if (ctrl.hasClass('hide')) {
