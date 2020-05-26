@@ -25,12 +25,15 @@
 
         <script id="entry-template" type="text/x-handlebars-template">
             <ul class="card">
-                <li>{{titolo}}</li>
-                <li>{{titoloOriginale}}</li>
-                <li class="{{indiceLingua}}">{{lingua}}</li>
-                <li class="{{indiceVoto}}">{{voto}}</li>
                 <li class="{{classeI}}"> <img src="{{copertina}}" alt=""></li>
-                <li><p>{{descrizioneFilm}}</p></li>
+                <div class="hide">
+                    <li>{{titolo}}</li>
+                    <li>{{titoloOriginale}}</li>
+                    <li class="{{indiceLingua}}">{{lingua}}</li>
+                    <li class="{{indiceVoto}}">{{voto}}</li>
+                    <li><p>{{descrizioneFilm}}</p></li>
+                </div>
+
             </ul>
         </script>
         <script src="main.js" charset="utf-8"></script>

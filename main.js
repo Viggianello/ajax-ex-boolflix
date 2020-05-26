@@ -51,11 +51,9 @@
 // aggiuntive già prese nei punti precedenti più la overview
 
 $(document).ready(function() {
-    // ● Andando con il mouse sopra una card (on hover), appaiono le informazionion
-    // NON FUNZIONA COME MAI?
-    $('#risultati').on('hover', '.card', function() {
-        console.log('ciao');
-
+    // ● Andando con il mouse sopra una card e appaiono le informazionion
+    $('#risultati').on('mouseenter', '.card', function() {
+        $(this).find('.hide').removeClass('hide')
         // alert('ciao');
     });
     // predispongo per inserire tramite la libreria handlebars i messaggi inviati dall utente
@@ -224,20 +222,27 @@ $(document).ready(function() {
         }
 
         // di base rendo le immagini non visibili
-        var clasimg = 'invisible';
+        // var clasimg = 'invisible';
         if (oggetto.backdrop_path != null) {
-            // se l'immagine esiste tiro via l'invisibilità rendendo dunque le immagini visibili
-            clasimg = '';
+            var immagineCopertina= 'http://image.tmdb.org/t/p/w342/' +     oggetto.backdrop_path;
         }
+        else if (oggetto.backdrop_path == null) {
+            var immagineCopertina = oggetto.backdrop_path = 'img/noimg.png';
+        }
+        // if (oggetto.backdrop_path != null) {
+        //     // se l'immagine esiste tiro via l'invisibilità rendendo dunque le immagini visibili
+        //     clasimg = '';
+        // }
+
         var placeholder = {
             titolo: titolo,
             titoloOriginale: originaltitle,
             lingua:oggetto.original_language,
             voto: oggetto.vote_average,
             // possibili dimensioni immagini-->"poster_sizes": ["w92",w154","w185","w342","w500","w780","original"],
-            copertina: 'http://image.tmdb.org/t/p/w342/' +     oggetto.backdrop_path,
+            copertina: immagineCopertina,
             descrizioneFilm: oggetto.overview,
-            classeI: clasimg,
+            // classeI: clasimg,
             indiceVoto: indice,
             indiceLingua: indice + 100
         }
