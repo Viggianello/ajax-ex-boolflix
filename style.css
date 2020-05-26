@@ -20,6 +20,7 @@ header {
 }
 .header-left h1{
     color: red;
+    padding-left: 60px;
 }
 .header-right{
     float: right;
@@ -38,9 +39,14 @@ li{
 .invisible{
     display: none;
 }
+input{
+    padding: 2px;
+}
 button{
     cursor: pointer;
     background-color: red;
+    border-color: red;
+    padding: 3px;
 }
 p{
     padding: 5px;
@@ -51,11 +57,17 @@ img{
     border: 1px solid white;
     max-width: 96%;
 }
+.logo{
+    width: 50px;
+    height: 50px;
+    position:absolute;
+    top: 0;
+}
 .card{
     background-color: black;
     margin: 5px;
     /* per far vedere la badiera tedesca che ha il nero fra i sui colori */
     border: 1px solid white;
     width: 250px;
-    height: 990px;
+    /* height: 1025px; */
 }
