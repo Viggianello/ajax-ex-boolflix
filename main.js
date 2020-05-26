@@ -51,15 +51,21 @@
 // aggiuntive già prese nei punti precedenti più la overview
 
 $(document).ready(function() {
-    // ● Andando con il mouse sopra una card e appaiono le informazionioni
-    $('#risultati').on('mouseenter', '.card', function() {
-        $(this).find('.hide').removeClass('hide')
-        // alert('ciao');
-    });
+    // // ● Andando con il mouse sopra una card e appaiono le informazionioni
+    // $('#risultati').on('mouseenter', '.card', function() {
+    //     $(this).find('.hide').removeClass('hide')
+    //     // alert('ciao');
+    // });
 
     // ● Uscendo con il mouse da sopra una card si nascondono le informazionioni
     $('#risultati').on('click', '.card', function() {
-        $(this).find('div').addClass('hide')
+        var ctrl= $(this).find('div');
+        if (ctrl.hasClass('hide')) {
+            ctrl.removeClass('hide');
+        }
+        else {
+            ctrl.addClass('hide');
+        }
         // alert('ciao');
     });
     // predispongo per inserire tramite la libreria handlebars i messaggi inviati dall utente
