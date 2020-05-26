@@ -266,6 +266,17 @@ $(document).ready(function() {
         //     clasimg = '';
         // }
 
+        // tagliare il testo dopo tot caratteri
+        function paragrafoEffetto() {
+         var str = oggetto.overview;
+         var res = str.substring(0, 150);
+         if (res!= '') {
+             // solo se c'è testo meto i tre puntini
+             res = str.substring(0, 145) + '...';
+         }
+         return res;
+         // document.getElementById("demo").innerHTML = res;
+        }
         var placeholder = {
             titolo: titolo,
             titoloOriginale: originaltitle,
@@ -273,7 +284,7 @@ $(document).ready(function() {
             voto: oggetto.vote_average,
             // possibili dimensioni immagini-->"poster_sizes": ["w92",w154","w185","w342","w500","w780","original"],
             copertina: immagineCopertina,
-            descrizioneFilm: oggetto.overview,
+            descrizioneFilm: paragrafoEffetto(),
             // classeI: clasimg,
             indiceVoto: indice,
             indiceLingua: indice + 100
