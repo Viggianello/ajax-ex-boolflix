@@ -25,14 +25,20 @@
 
         <script id="entry-template" type="text/x-handlebars-template">
             <ul class="card">
-                <li class="{{classeI}}"> <img src="{{copertina}}" alt=""></li>
-                <div class="hide">
-                    <li>{{titolo}}</li>
-                    <li>{{titoloOriginale}}</li>
-                    <li class="{{indiceLingua}}">{{lingua}}</li>
-                    <li class="{{indiceVoto}}">{{voto}}</li>
-                    <li><p>{{descrizioneFilm}}</p></li>
-                </div>
+                <li class="effetto">
+                    <ul>
+                        <li class="">{{titolo}}</li>
+                        <li class="{{classeI}}"> <img src="{{copertina}}" alt=""></li>
+                    </ul>
+                </li>
+                <li class="hide effetto">
+                    <ul>
+                        <li>{{titoloOriginale}}</li>
+                        <li class="{{indiceLingua}} bandierina">{{lingua}}</li>
+                        <li class="{{indiceVoto}}">{{voto}}</li>
+                        <li><p>{{descrizioneFilm}}</p></li>
+                    </ul>
+                </li>
 
             </ul>
         </script>

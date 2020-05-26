@@ -29,7 +29,7 @@ header {
     padding-top: 100px;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start;
 }
 li{
     color: white;
@@ -50,11 +50,16 @@ button{
 }
 p{
     padding: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 img{
     /* per far vedere la badiera tedesca che ha il nero fra i sui colori */
     border: 1px solid white;
-    width: 100%;
+    max-width: 100%;
+}
+.bandierina img{
+    height: 30px;
 }
 .logo{
     width: 50px;
@@ -69,7 +74,7 @@ img{
     /* per far vedere la badiera tedesca che ha il nero fra i sui colori */
     border: 1px solid white;
     width: 250px;
-    /* height: 1025px; */
+    height: 600px;
 }
 .hide{
     display: none;

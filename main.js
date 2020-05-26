@@ -51,25 +51,44 @@
 // aggiuntive già prese nei punti precedenti più la overview
 
 $(document).ready(function() {
-    // // ● Andando con il mouse sopra una card e appaiono le informazionioni
-    // $('#risultati').on('mouseenter', '.card', function() {
-    //     $(this).find('div').removeClass('hide')
-    // });
+    // // ● Andando con il mouse sopra una card appaiono le informazionioni
+    $('#risultati').on('mouseenter', '.card', function() {
+        // $(this).find('div').removeClass('hide')
+        var ctrl= $(this).find('li.effetto');
+        ctrl.each(function() {
+            if ($(this).hasClass('hide')) {
+                $(this).removeClass('hide');
+            }
+            else {
+                $(this).addClass('hide');
+            }
+        })
+    });
 
     // ● Uscendo con il mouse da sopra una card si nascondono le informazionioni
-    // $('#risultati').on('mouseleave', '.card', function() {
-    //     $(this).find('div').removeClass('hide')
-    // });
-    // ● Cliccando su una card appaiono e si nascondono le informazionioni
-    $('#risultati').on('click', '.card', function() {
-        var ctrl= $(this).find('div');
-        if (ctrl.hasClass('hide')) {
-            ctrl.removeClass('hide');
+    $('#risultati').on('mouseleave', '.card', function() {
+        // $(this).find('div').removeClass('hide')
+    var ctrl= $(this).find('li.effetto');
+    ctrl.each(function() {
+        if ($(this).hasClass('hide')) {
+            $(this).removeClass('hide');
         }
         else {
-            ctrl.addClass('hide');
+            $(this).addClass('hide');
         }
-        // alert('ciao');
+    })
+    });
+    // ● Cliccando su una card appaiono e si nascondono le informazionioni
+    $('#risultati').on('click', '.card', function() {
+        var ctrl= $(this).find('li.effetto');
+        ctrl.each(function() {
+            if ($(this).hasClass('hide')) {
+                $(this).removeClass('hide');
+            }
+            else {
+                $(this).addClass('hide');
+            }
+        })
     });
     // predispongo per inserire tramite la libreria handlebars i messaggi inviati dall utente
     var handlebarsCard = $('#entry-template').html();
@@ -154,9 +173,10 @@ $(document).ready(function() {
     // }// finefunzione chiamataAjax
 
     function chiamataAjax(valore) {
+        var chiamataUrlBase = 'https://api.themoviedb.org/3/search/'
         //Chiamata ajax film
         $.ajax({
-            'url': 'https://api.themoviedb.org/3/search/movie',
+            'url': chiamataUrlBase + 'movie',
             'method': 'GET',
             'data': {
                 'api_key': '4a0b8c67695163b99de0216fcb0bfb27',
@@ -188,7 +208,7 @@ $(document).ready(function() {
         );
         // Chiamata ajax serie tv
             $.ajax({
-                'url': 'https://api.themoviedb.org/3/search/tv' ,
+                'url': chiamataUrlBase + 'tv' ,
                 'method': 'GET',
                 'data': {
                     'api_key': '4a0b8c67695163b99de0216fcb0bfb27',
