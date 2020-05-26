@@ -78,6 +78,7 @@ $(document).ready(function() {
         }
     })
     });
+    
     // ● Cliccando su una card appaiono e si nascondono le informazionioni
     // $('#risultati').on('click', '.card', function() {
     //     var ctrl= $(this).find('li.effetto');
@@ -90,6 +91,7 @@ $(document).ready(function() {
     //         }
     //     })
     // });
+
     // predispongo per inserire tramite la libreria handlebars i messaggi inviati dall utente
     var handlebarsCard = $('#entry-template').html();
     var template_function = Handlebars.compile(handlebarsCard);
@@ -115,7 +117,6 @@ $(document).ready(function() {
         bandiereStati.push(bandCec);
         bandiereStati.push(bandCin);
         // console.log(bandiereStati);
-        // bandiereStati = [banIta, bandIng, bandFra];
         if (nazione == 'it') {
             // cancello la sigla della lingua
             $('.' + ncardpiu100).html('');
@@ -146,7 +147,8 @@ $(document).ready(function() {
             $('.' + ncardpiu100).html(bandCin)
         }
     // allora non l'ho in elenco e lascio la sigla
-    }
+    };// fine function bandiera
+
     // Creo una funzione legata al invio inserito nell'input in modo tale da far partire la ricerca senza dover cliccare sul pulsante cerca
     $('#testo-ricerca').keypress().keypress(function(event){
         var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -158,7 +160,7 @@ $(document).ready(function() {
         }// chiudo l'if controllo input inserito da tastiera tasto 13 ossia invio
     });// chiudo il keypress dell'input
 
-    // Creo una funzione legata al click del pulsante mostranodo i risultati della chiamata ajax
+    // Creo una funzione legata al click del pulsante, Cerca, mostranodo i risultati della chiamata ajax
     $('#pulsante-ricerca').click(function() {
         // resetto l input da precedenti ricerche
         $('#risultati').html('');
@@ -167,11 +169,6 @@ $(document).ready(function() {
     })
 
     // Creo una funzione per la chiamata ajax legata al parametro valore che sarà quello che leggeremo dall'input che metterà l'utente
-
-    // function chiamataAjaxSerie(valore) {
-    //
-    // }// finefunzione chiamataAjax
-
     function chiamataAjax(valore) {
         var chiamataUrlBase = 'https://api.themoviedb.org/3/search/';
         var api_key ='4a0b8c67695163b99de0216fcb0bfb27';
@@ -225,7 +222,7 @@ $(document).ready(function() {
                 }
             }// fine oggetto
             );
-    }// finefunzione chiamataAjax
+    };// finefunzione chiamataAjax
 
     function erroreAjax() {
         if (valore == '') {
@@ -254,6 +251,7 @@ $(document).ready(function() {
                 var originaltitle = '';
                 classetitolo = 'invisible';
         }
+        // soluzione se non voglio mettere una immagine che avvisa l'utente quando immagine di copertina non c'è = noImgEffet
         // di base rendo le immagini non visibili
         // var clasimg = 'invisible';
         if (oggetto.backdrop_path != null) {
@@ -262,6 +260,7 @@ $(document).ready(function() {
         else if (oggetto.backdrop_path == null) {
             var immagineCopertina = oggetto.backdrop_path = 'img/noimg.png';
         }
+        // noImgEffet
         // if (oggetto.backdrop_path != null) {
         //     // se l'immagine esiste tiro via l'invisibilità rendendo dunque le immagini visibili
         //     clasimg = '';
@@ -276,7 +275,6 @@ $(document).ready(function() {
              res = str.substring(0, 80) + '...';
          }
          return res;
-         // document.getElementById("demo").innerHTML = res;
         }
         var placeholder = {
             classTit: classetitolo,
@@ -287,6 +285,7 @@ $(document).ready(function() {
             // possibili dimensioni immagini-->"poster_sizes": ["w92",w154","w185","w342","w500","w780","original"],
             copertina: immagineCopertina,
             descrizioneFilm: paragrafoEffetto(),
+            // noImgEffet:
             // classeI: clasimg,
             indiceVoto: indice,
             indiceLingua: indice + 100
