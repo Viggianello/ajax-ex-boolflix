@@ -238,6 +238,7 @@ $(document).ready(function() {
     };
 
     function stampaCard(oggetto, indice, ricercaTipologia) {
+        var classetitolo = '';
         // controllo che la chiamata sia relativa ai movie
         if (ricercaTipologia=='film') {
             var titolo = oggetto.title;
@@ -250,9 +251,9 @@ $(document).ready(function() {
         }
         if (titolo == originaltitle) {
             // sono uguali quindi li nascondo
-            originaltitle = '';
+                var originaltitle = '';
+                classetitolo = 'invisible';
         }
-
         // di base rendo le immagini non visibili
         // var clasimg = 'invisible';
         if (oggetto.backdrop_path != null) {
@@ -269,15 +270,16 @@ $(document).ready(function() {
         // tagliare il testo dopo tot caratteri
         function paragrafoEffetto() {
          var str = oggetto.overview;
-         var res = str.substring(0, 150);
+         var res = str.substring(0, 80);
          if (res!= '') {
              // solo se c'è testo meto i tre puntini
-             res = str.substring(0, 145) + '...';
+             res = str.substring(0, 80) + '...';
          }
          return res;
          // document.getElementById("demo").innerHTML = res;
         }
         var placeholder = {
+            classTit: classetitolo,
             titolo: titolo,
             titoloOriginale: originaltitle,
             lingua:oggetto.original_language,
