@@ -52,6 +52,7 @@ p{
     padding: 5px;
     text-overflow: ellipsis;
     overflow: hidden;
+    max-height: 100%;
 }
 img{
     /* per far vedere la badiera tedesca che ha il nero fra i sui colori */

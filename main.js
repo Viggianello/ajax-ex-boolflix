@@ -79,17 +79,17 @@ $(document).ready(function() {
     })
     });
     // ● Cliccando su una card appaiono e si nascondono le informazionioni
-    $('#risultati').on('click', '.card', function() {
-        var ctrl= $(this).find('li.effetto');
-        ctrl.each(function() {
-            if ($(this).hasClass('hide')) {
-                $(this).removeClass('hide');
-            }
-            else {
-                $(this).addClass('hide');
-            }
-        })
-    });
+    // $('#risultati').on('click', '.card', function() {
+    //     var ctrl= $(this).find('li.effetto');
+    //     ctrl.each(function() {
+    //         if ($(this).hasClass('hide')) {
+    //             $(this).removeClass('hide');
+    //         }
+    //         else {
+    //             $(this).addClass('hide');
+    //         }
+    //     })
+    // });
     // predispongo per inserire tramite la libreria handlebars i messaggi inviati dall utente
     var handlebarsCard = $('#entry-template').html();
     var template_function = Handlebars.compile(handlebarsCard);
@@ -173,13 +173,14 @@ $(document).ready(function() {
     // }// finefunzione chiamataAjax
 
     function chiamataAjax(valore) {
-        var chiamataUrlBase = 'https://api.themoviedb.org/3/search/'
+        var chiamataUrlBase = 'https://api.themoviedb.org/3/search/';
+        var api_key ='4a0b8c67695163b99de0216fcb0bfb27';
         //Chiamata ajax film
         $.ajax({
             'url': chiamataUrlBase + 'movie',
             'method': 'GET',
             'data': {
-                'api_key': '4a0b8c67695163b99de0216fcb0bfb27',
+                'api_key': api_key,
                 'query': valore,
                 'language': 'it'
             },
@@ -195,14 +196,7 @@ $(document).ready(function() {
 
             },
             'error':function(){
-                if (valore == '') {
-                    // va bene no problem
-                    console.log('reset pagina stato iniziale');
-                }
-                else if(valore != '') {
-                    alert('errore');
-                }
-
+                erroreAjax();
             }
         }// fine oggetto
         );
@@ -211,7 +205,7 @@ $(document).ready(function() {
                 'url': chiamataUrlBase + 'tv' ,
                 'method': 'GET',
                 'data': {
-                    'api_key': '4a0b8c67695163b99de0216fcb0bfb27',
+                    'api_key': api_key,
                     'query': valore,
                     'language': 'it'
                 },
@@ -227,18 +221,21 @@ $(document).ready(function() {
 
                 },
                 'error':function(){
-                    if (valore == '') {
-                        // va bene no problem
-                        console.log('reset pagina stato iniziale');
-                    }
-                    else if(valore != '') {
-                        alert('errore');
-                    }
-
+                    erroreAjax();
                 }
             }// fine oggetto
             );
     }// finefunzione chiamataAjax
+
+    function erroreAjax() {
+        if (valore == '') {
+            // va bene no problem
+            console.log('reset pagina stato iniziale');
+        }
+        else if(valore != '') {
+            alert('errore');
+        }
+    };
 
     function stampaCard(oggetto, indice, ricercaTipologia) {
         // controllo che la chiamata sia relativa ai movie
@@ -286,7 +283,9 @@ $(document).ready(function() {
         var indiceLingua= indice + 100;
         stelline(oggetto.vote_average, indice);
         bandiera(oggetto.original_language, indiceLingua);
-    }
+
+    };// fine funzione stampaCard
+
 
     function ricercaUtente(){
         // recupero il testo dell'utente (inserito nell input), tiro via gli spazi inutili, lo rendo tutto minuscolo (per un confronto futuro migliore) e lo restituisco
