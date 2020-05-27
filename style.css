@@ -59,6 +59,9 @@ img{
     border: 1px solid white;
     max-width: 100%;
 }
+.poster img{
+    border-radius: 10%;
+}
 .bandierina img{
     height: 30px;
 }
