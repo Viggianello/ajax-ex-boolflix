@@ -78,7 +78,7 @@ $(document).ready(function() {
         }
     })
     });
-    
+
     // ● Cliccando su una card appaiono e si nascondono le informazionioni
     // $('#risultati').on('click', '.card', function() {
     //     var ctrl= $(this).find('li.effetto');
@@ -169,9 +169,11 @@ $(document).ready(function() {
     })
 
     // Creo una funzione per la chiamata ajax legata al parametro valore che sarà quello che leggeremo dall'input che metterà l'utente
+    var chiamataUrlBase = 'https://api.themoviedb.org/3/search/';
+    var api_key ='4a0b8c67695163b99de0216fcb0bfb27';
+    var poster_path = 'http://image.tmdb.org/t/p/';
+    var copertinaDimensioni = 'w342';
     function chiamataAjax(valore) {
-        var chiamataUrlBase = 'https://api.themoviedb.org/3/search/';
-        var api_key ='4a0b8c67695163b99de0216fcb0bfb27';
         //Chiamata ajax film
         $.ajax({
             'url': chiamataUrlBase + 'movie',
@@ -255,10 +257,10 @@ $(document).ready(function() {
         // di base rendo le immagini non visibili
         // var clasimg = 'invisible';
         if (oggetto.backdrop_path != null) {
-            var immagineCopertina= 'http://image.tmdb.org/t/p/w342/' +     oggetto.backdrop_path;
+            var immagineCopertina= poster_path + copertinaDimensioni + oggetto.backdrop_path;
         }
         else if (oggetto.backdrop_path == null) {
-            var immagineCopertina = oggetto.backdrop_path = 'img/noimg.png';
+            var immagineCopertina = 'img/noimg.png';
         }
         // noImgEffet
         // if (oggetto.backdrop_path != null) {
