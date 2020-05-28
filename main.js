@@ -268,16 +268,6 @@ $(document).ready(function() {
         //     clasimg = '';
         // }
 
-        // tagliare il testo dopo tot caratteri
-        function paragrafoEffetto() {
-         var str = oggetto.overview;
-         var res = str.substring(0, 80);
-         if (res!= '') {
-             // solo se c'è testo meto i tre puntini
-             res = str.substring(0, 80) + '...';
-         }
-         return res;
-        }
         var placeholder = {
             classTit: classetitolo,
             titolo: titolo,
@@ -286,7 +276,7 @@ $(document).ready(function() {
             voto: oggetto.vote_average,
             // possibili dimensioni immagini-->"poster_sizes": ["w92",w154","w185","w342","w500","w780","original"],
             copertina: immagineCopertina,
-            descrizioneFilm: paragrafoEffetto(),
+            descrizioneFilm: paragrafoEffetto(oggetto),
             // noImgEffet:
             // classeI: clasimg,
             indiceVoto: indice,
@@ -300,6 +290,16 @@ $(document).ready(function() {
 
     };// fine funzione stampaCard
 
+    // tagliare il testo dopo tot caratteri
+    function paragrafoEffetto(oggetto) {
+     var str = oggetto.overview;
+     var res = str.substring(0, 80);
+     if (res!= '') {
+         // solo se c'è testo meto i tre puntini
+         res = str.substring(0, 80) + '...';
+     }
+     return res;
+    }
 
     function ricercaUtente(){
         // recupero il testo dell'utente (inserito nell input), tiro via gli spazi inutili, lo rendo tutto minuscolo (per un confronto futuro migliore) e lo restituisco
