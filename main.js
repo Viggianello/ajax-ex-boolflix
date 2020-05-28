@@ -276,7 +276,10 @@ $(document).ready(function() {
             voto: oggetto.vote_average,
             // possibili dimensioni immagini-->"poster_sizes": ["w92",w154","w185","w342","w500","w780","original"],
             copertina: immagineCopertina,
-            descrizioneFilm: paragrafoEffetto(oggetto),
+            // effetto zenza la scroll bars y
+            // descrizioneFilm: paragrafoEffetto(oggetto),
+            // effetto con la scroll bars y
+            descrizioneFilm: oggetto.overview,
             // noImgEffet:
             // classeI: clasimg,
             indiceVoto: indice,
