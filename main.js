@@ -195,7 +195,7 @@ $(document).ready(function() {
 
             },
             'error':function(){
-                erroreAjax();
+                erroreAjax(valore);
             }
         }// fine oggetto
         );
@@ -220,18 +220,18 @@ $(document).ready(function() {
 
                 },
                 'error':function(){
-                    erroreAjax();
+                    erroreAjax(valore);
                 }
             }// fine oggetto
             );
     };// finefunzione chiamataAjax
 
-    function erroreAjax() {
+    function erroreAjax(valore) {
         if (valore == '') {
             // va bene no problem
             console.log('reset pagina stato iniziale');
         }
-        else if(valore != '') {
+        else {
             alert('errore');
         }
     };
@@ -256,12 +256,13 @@ $(document).ready(function() {
         // soluzione se non voglio mettere una immagine che avvisa l'utente quando immagine di copertina non c'è = noImgEffet
         // di base rendo le immagini non visibili
         // var clasimg = 'invisible';
+        var immagineCopertina = 'img/noimg.png';
         if (oggetto.backdrop_path != null) {
             var immagineCopertina= poster_path + copertinaDimensioni + oggetto.backdrop_path;
         }
-        else if (oggetto.backdrop_path == null) {
-            var immagineCopertina = 'img/noimg.png';
-        }
+        // else if (oggetto.backdrop_path == null) {
+        //     var immagineCopertina = 'img/noimg.png';
+        // }
         // noImgEffet
         // if (oggetto.backdrop_path != null) {
         //     // se l'immagine esiste tiro via l'invisibilità rendendo dunque le immagini visibili
